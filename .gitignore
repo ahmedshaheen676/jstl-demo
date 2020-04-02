@@ -1,0 +1,6 @@
+/jshell.history
+/nb-configuration.xml
+/target/**
+*.class
+*.jar
+*.war
