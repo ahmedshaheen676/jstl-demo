@@ -21,20 +21,6 @@ import javax.persistence.Table;
 @Table(name = "employee", schema = "iti")
 public class Employee implements Serializable {
 
-    /**
-     * @return the lastName
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * @param lastName the lastName to set
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -47,7 +33,7 @@ public class Employee implements Serializable {
 
     @Column(name = "email")
     private String email;
-    
+
     @Column(name = "phone")
     private String phone;
 
@@ -89,6 +75,20 @@ public class Employee implements Serializable {
      */
     public void setFristName(String fristName) {
         this.fristName = fristName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
@@ -137,6 +137,5 @@ public class Employee implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
 
 }
