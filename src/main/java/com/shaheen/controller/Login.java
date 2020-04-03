@@ -5,9 +5,14 @@
  */
 package com.shaheen.controller;
 
+import com.shaheen.model.User;
+import com.shaheen.repository.UserRepo;
+import com.shaheen.repository.UserRepoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Login", urlPatterns = {"/login"})
 public class Login extends HttpServlet {
+
+    private UserRepo userRepo = new UserRepoImpl();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -32,7 +39,33 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("login").forward(request, response);
+        request.getRequestDispatcher("login.jsp").include(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = validateUserData(request);
+        if (user != null) {
+            setUserDataOnSession(request, user);
+        } else {
+            // add error message on login page
+            request.setAttribute("errorMessage", "error username or password");
+        }
+    }
+
+    private User validateUserData(HttpServletRequest request) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        System.out.println("username" + username + "password" + password);
+        if (username != null && password != null) {
+            return userRepo.findByUsernameAndPassword(username.trim(), password.trim());
+        }
+        return null;
+    }
+
+    private void setUserDataOnSession(HttpServletRequest request, User user) {
+        request.getSession().setAttribute("user", user);
     }
 
 }
