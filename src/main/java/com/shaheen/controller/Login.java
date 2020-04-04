@@ -47,9 +47,12 @@ public class Login extends HttpServlet {
         User user = validateUserData(request);
         if (user != null) {
             setUserDataOnSession(request, user);
+            response.sendRedirect(request.getContextPath() + "/");
+
         } else {
             // add error message on login page
             request.setAttribute("errorMessage", "error username or password");
+            request.getRequestDispatcher("login.jsp").include(request, response);
         }
     }
 

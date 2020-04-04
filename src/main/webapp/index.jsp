@@ -55,21 +55,5 @@
                 </c:if>
             </section>
         </div>
-        <script>
-            var table = document.getElementById('table');
-
-            for (var i = 1; i < table.rows.length; i++) {
-                table.rows[i].onclick = function () {
-                    //rIndex = this.rowIndex;
-                    document.getElementById("firstName1").value = this.cells[0].innerHTML.trim();
-                    document.getElementById("lastName1").value = this.cells[1].innerHTML.trim();
-                    document.getElementById("email1").value = this.cells[2].innerHTML.trim();
-                    document.getElementById("phone1").value = this.cells[3].innerHTML.trim();
-                    document.getElementById("id").value = this.cells[4].innerHTML.trim();
-
-                };
-            }
-
-        </script>
     </body>
 </html>

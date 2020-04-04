@@ -28,7 +28,8 @@ public class AuthFilter implements Filter {
 
     FilterConfig filterConfig = null;
 
-    private static final List<String> PUBLIC_MACHES = Arrays.asList("/login", "/register");
+    private static final List<String> PUBLIC_MACHES = Arrays.asList("/login",
+            "/register" , "/static");
 
     /**
      *
@@ -50,6 +51,7 @@ public class AuthFilter implements Filter {
             System.out.println("on chain.doFilter");
             chain.doFilter(request, response);
         } else {
+            System.out.println("httpRequest.getRequestURI()" + httpRequest.getRequestURI());
             request.getRequestDispatcher("login.jsp").include(request, response);
         }
     }
