@@ -8,12 +8,15 @@ package com.shaheen.controller;
 import com.shaheen.model.User;
 import com.shaheen.repository.UserRepo;
 import com.shaheen.repository.UserRepoImpl;
+import com.shaheen.utility.MapObject;
+import com.shaheen.utility.ReadWriteCookei;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,7 +50,10 @@ public class Login extends HttpServlet {
         User user = validateUserData(request);
         if (user != null) {
             setUserDataOnSession(request, user);
-            response.sendRedirect(request.getContextPath() + "/");
+            // write cookie  
+            ReadWriteCookei.writeCookie(response, "user", new MapObject<User>().mapObjectToJson(user), 60*60);
+
+            request.getRequestDispatcher("/").include(request, response);
 
         } else {
             // add error message on login page
